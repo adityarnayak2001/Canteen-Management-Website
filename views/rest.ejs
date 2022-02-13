@@ -1,0 +1,108 @@
+<!-- views/rest.ejs -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css"   href="/css/style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Canteen Management App</title>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script type="text/javascript" charset="UTF-8" src="/javascript/rest_foods.js"></script>
+    </head>
+    <style>
+      *{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+img{
+  height:120px;
+  width:auto;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.kc_fab_main_btn {
+        transition: background 0.25s;
+        background-color: #F44336;
+        width: 150px;
+        height: 60px;
+        border-radius: 7%;
+        background: #1c8adb;
+        border: none;
+        outline: none;
+        color: #FFF;
+        font-size: 36px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        transition: .3s;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        position:fixed;
+        right: 20px;
+        bottom: 20px;
+      }
+      
+      .kc_fab_main_btn:hover {
+        transform: scale(1.1);  
+      }
+      .kc_fab_main_btn:active{
+        background:#2980B9
+      }
+    </style>
+    <body>
+      <div id="nav-placeholder">
+        <%- include('partials/rest_sidebar') %> 
+      </div>
+      <div id='main'  class="main"> 
+      <section class="products">
+        <!-- It's likely you'll need to link the card somewhere. You could add a button in the info, link the titles, or even wrap the entire card in an <a href="..."> -->
+          <% for(var i=0; i < results.length; i++) {%>
+          <div class="product-card">
+          <div class="product-image">
+            <img src='<%= results[i]["image"] %>'>
+          </div>
+          <div class="product-info">
+            <p class="food-id" style="display: none;"><%= results[i]["food_id"]  %></p>
+            <h5><%= results[i]["name"]  %></h5>
+            <h6><%= results[i]["price"] %>₹</h6>
+            <div style="display: flex; flex-direction: row;">
+              <input id='<%= results[i]["food_id"] %>' class="inventory-count-input"  type="number" value= <%= results[i]["inventory_count"] %>>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        <!-- more products -->
+      </section>
+      </div>
+      <button onclick="myFunction()" class="kc_fab_main_btn">Save</button>
+      
+      <script>
+        $(function(){
+        $("#nav-placeholder").load("sidebar.html");
+      });
+
+      function myFunction(){
+        var array = [];
+        var btn = document.getElementsByClassName('product-card');
+        for(var i=0; i<btn.length ; i++){
+         array.push({"food_id":btn[i].getElementsByClassName('food-id')[0].innerText, 
+         "qty":btn[i].getElementsByClassName('inventory-count-input')[0].value});
+        } 
+        console.log(array);
+        fetch("/update_food_qty",{
+                headers:{
+                "Content-type":"application/json",
+                },
+                method: "POST",
+                body: JSON.stringify(array),
+            })
+          }
+      </script>
+    </body>
+</html>

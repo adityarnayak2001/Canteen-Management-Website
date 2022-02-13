@@ -1,0 +1,39 @@
+<!-- views/orders_history.ejs -->
+<html>
+<head>
+    <title> Order History </title>
+    <link rel="stylesheet" type="text/css"   href="/css/style.css">
+</head>
+<body class="order-body">
+    <nav>
+        <label class="navbar-label"> Order History </label>
+    </nav>
+    <br>
+    <div class="order-row">
+        <span class="order-item order-header order-column">ITEMS</span>
+        <span class="order-price order-header order-column">TOTAL AMOUNT</span>
+        <span class="order-rest-name order-header order-column">RESTAURANT NAME</span>
+        <span class="order-date-time order-header order-column">DATE/TIME</span>
+        <span class="order-id order-header order-column">ORDER ID</span>
+    </div>
+    <% for(var i=0; i < data[0][0].length; i++) { %>
+    <div class="order-row">
+        <div class="order-item order-column">
+            <span class="order-item-title">
+                <ol class = "order-item-content">
+                    <% for(var j=0; j < data[1][i].length; j++) { %>
+                    <li> <%= data[1][i][j].name %>(x<%= data[1][i][j].QTY %>)</li>
+                    <% } %>
+                </ol>
+            </span>
+        </div>
+        <span class="order-item-content order-column"><%= data[0][0][i].total_amt %></span>
+        <span class="order-item-content order-column"><%= data[0][0][i].rest_name %></span>
+        <span class="order-item-content order-column"><%= data[0][0][i].date_time %></span>
+        <div class="order-status order-column">
+            <span class="order-item-content "><%= data[0][0][i].ORDER_ID %></span>
+        </div>
+    </div>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!-- views/rest_orders.ejs -->
+<html>
+<head>
+    <title> Orders </title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.btn {
+    text-align: center;
+    vertical-align: middle;
+    padding: .67em .67em;
+    cursor: pointer;
+}
+
+.btn-primary {
+    color: white;
+    background-color: #1c8adb;
+    border: none;
+    border-radius: .3em;
+    font-weight: bold;
+}
+
+.btn-status {
+  display: block;
+  font-size: 1.0em;
+  cursor: pointer;
+  min-width: 190px;
+}
+.btn-status:hover, .btn-status:focus {
+  background-color: #2980B9;
+}
+
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+.show {display:block;}
+</style>
+<body >
+    <div id="sidebar-placeholder">
+        <%- include('partials/rest_sidebar') %>
+      </div>
+      <div id='main'  class="main"> 
+      <div class="order-body" style="border-left: 200px;">
+    <nav>
+        <label class="navbar-label"> Orders </label>
+    </nav>
+    <div class="order-row">
+        <span class="order-item order-header order-column">ITEMS</span>
+        <span class="order-price order-header order-column">TOTAL PRICE</span>
+        <span class="order-rest-name order-header order-column">CUSTOMER NAME</span>
+        <span class="order-order-number order-header order-column">ORDER NUMBER</span>
+        <span class="order-status order-header order-column">STATUS</span>
+        
+    </div>
+    <% for(var i=0; i < data[0][0].length; i++) { %>
+    <div class="order-row">
+        <div class="order-item order-column">
+            <span class="order-item-title">
+                <ol class = "order-item-content">
+                    <% for(var j=0; j < data[1][i].length; j++) { %>
+                        <li><%= data[1][i][j].name %>(x<%= data[1][i][j].QTY %>)</li>
+                        <% } %>
+                </ol>
+            </span>
+        </div>
+        <span class="order-item-content order-column"><%= data[0][0][i].total_amt %></span>
+        <span class="order-item-content order-column"><%= data[0][0][i].fname %> <%= data[0][0][i].lname %></span>
+        <span class="order-item-content order-column"><%= data[0][0][i].order_no %></span>
+        <div class="order-status order-column">
+            <span class="order-item-content ">
+                <div class="dropdown">
+                    <button id = "<%= data[0][0][i].ORDER_ID %>" class="btn btn-primary btn-status"><%= data[0][0][i].status %></button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="changeButtonText(this.innerText,'<%= data[0][0][i].ORDER_ID %>')">TRANSACT NA</a>
+                        <a href="#" onclick="changeButtonText(this.innerText,'<%= data[0][0][i].ORDER_ID %>')">TRANSACT CMPLTD</a>
+                      <a href="#" onclick="changeButtonText(this.innerText,'<%= data[0][0][i].ORDER_ID %>')">PREPARING</a>
+                      <a  href="#" onclick="changeButtonText(this.innerText,'<%= data[0][0][i].ORDER_ID %>')">READY</a>
+                      <a href="#" onclick="changeButtonText(this.innerText,'<%= data[0][0][i].ORDER_ID %>')">DELIVERED</a>
+                    </div>
+                  </div>
+            </span>
+        </div>
+
+
+    </div>
+    <% } %>
+      </div>
+      </div>
+
+      <script>
+        function changeButtonText(value,id){
+            document.getElementById(id).innerText = value;
+
+            fetch("/update_order_status",{
+                headers:{
+                "Content-type":"application/json",
+                },
+                method: "POST",
+                body: JSON.stringify({"status":value,"order_id":id})
+            })
+        }
+    </script>
+</body>
+
+</html>
