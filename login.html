@@ -1,0 +1,49 @@
+<html>
+<head>
+<title> Sign In </title>
+<link rel="stylesheet" type="text/css"   href="/css/style.css">
+</head>
+
+
+<body class = "sign-in-body" >
+  <div class="sign-up">
+    <h1>Login</h1>
+<form name="form" action="/" method="post" style="border:1px solid #ccc" >
+
+    <p>Enter Login Details.</p>
+    <hr>
+
+    <label for="email"><b>Email</b></label>
+    <input id="email"  type="text" placeholder="Enter Email" name="email" class = "input-box" required>
+<br>
+
+    <label for="password"><b>Password</b></label>
+    <input id="password" type="password" placeholder="Enter Password" name="password" class = "input-box" required>
+<br>
+
+
+<div class = "userType">
+  <label for="user">User </label>
+  <input type="radio" name = "userType" id="user" value="customer">
+
+  <label for="restaurant">Restaurant </label>
+  <input type="radio" name = "userType" id="restaurant" value="restaurant">
+
+</div>
+
+
+    <p style="text-align: right;" > Not registered? <a href="create-account-user" style="color:dodgerblue">Join as an user</a>.</p>
+      <p style="text-align: right;" >  <a href="create-account-rest" style="color:dodgerblue">Join as a restaurant owner</a>.</p>
+
+
+    <div  class="clearfix">
+      <button type="button" onclick="parent.location='frontpage.html'" class = "sign-up-btn" >Cancel</button>
+      <button  type="submit" class = "sign-up-btn" >Login</button>
+    </div>
+
+
+</form>
+</div>
+<script src="login.js"></script>
+</body>
+</html>

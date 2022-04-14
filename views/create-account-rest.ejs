@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<title> Sign Up Form </title>
+<link rel="stylesheet" type="text/css"   href="/css/style.css">
+</head>
+
+
+<body class = "sign-in-body">
+  <div class="sign-up">
+    <h1>Sign Up</h1>
+<form action="/create-account-rest" method="post" style="border:1px solid #ccc">
+
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+    <label for="rname"><b>Restaurant Name</b></label>
+    <input type="text" placeholder="Enter Restaurant Name" name="rname" class = "input-box" required >
+    <br>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" class = "input-box" required>
+<br>
+    <label for="phoneNo"><b>Phone Number</b></label>
+    <input type="tel" placeholder="Enter Phone Number" name="phoneNo" class = "input-box" required>
+<br>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" class = "input-box" required>
+<br>
+    <label for="psw-repeat"><b>Confirm Password</b></label>
+    <input type="password" placeholder="Enter Confirmed Password" name="psw-repeat" class = "input-box" required>
+<br>
+<label for="aId"><b>Authorization ID</b></label>
+<input type="text" placeholder="Enter Authorization ID" name="aId" class = "input-box" required >
+<br>
+
+    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+    <div class="clearfix">
+      <button type="button"  class = "sign-up-btn" >Cancel</button>
+      <button type="submit"  onclick="return samePass();"   class = "sign-up-btn" >Sign Up</button>
+    </div>
+
+</form>
+</div>
+<script type="text/javascript" language="JavaScript">
+    function BothFieldsIdenticalCaseSensitive() {
+    var one = document.form.psw.value;
+    var another = document.form.psw-repeat.value;
+    if(one == another) { return true; }
+    alert("Oops, both fields must be identical.");
+    return false;
+    }
+    </script>
+</body>
+</html>

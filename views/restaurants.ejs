@@ -1,0 +1,61 @@
+<!-- views/restaurants.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixed Sidebar Menu Html CSS</title>
+    <link rel="stylesheet" type="text/css"   href="/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  </head>
+  <body>
+    <div id="sidebar-placeholder">
+      <%- include('partials/sidebar') %>
+    </div>
+    <div id='main'  class="main"> 
+      <section class="products" id="products">
+      <% for(var i=0; i < results.length; i++) { var sum = results[i]["rest_id"]; %>
+       
+          <div class="product-card" onclick="parent.location='/restaurants/<%= sum %>';">
+            
+            <div class="product-image">
+              <img src='<%= results[i]["image_url"] %>'  alt="rest_image">
+            </div>
+            <div class="product-info">
+                  <h5><%= results[i]["rest_name"] %></h5>
+                  <h6><%= results[i]["phone_no"] %></h6>
+                  <h6><%= results[i]["status"] %></h6>
+              </div>
+          </div>
+        <% } %>
+      </section>
+    </div>
+  </body>
+</html>
+
+<!--
+<section class="products" id="products">
+  <div class="product-card">
+    <div class="product-image">
+      <img src="images/panner_butter_masala.jpg">
+    </div>
+    <div class="product-info">
+      <h5>panner_butter_masala</h5>
+      <h6>$99.99</h6>
+      </div>
+  </div>
+--!>

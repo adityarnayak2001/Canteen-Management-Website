@@ -1,0 +1,1 @@
+console.log(JSON.stringify([{"name":"aditya","age":11},{"name":"aditya","age":11}]));

@@ -1,0 +1,65 @@
+<!-- views/foods.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fixed Sidebar Menu Html CSS</title>
+    <link rel="stylesheet" type="text/css"   href="/css/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">  
+  </head>
+  <body>
+    <div id="sidebar-placeholder">
+      <%- include('partials/sidebar') %>
+    </div>
+    <div id='main'  class="main"> 
+      <section class="products" id="products">
+      <% for(var i=0; i < results.length; i++) {%>
+      <div class="product-card">
+        <div class="product-image">
+          <img class="food-image" src='<%= results[i]["image"] %>'  alt="rest_image">
+        </div>
+        <div class="product-info">
+          <p class="shop-item-foodid" style="display: none;"><%= results[i]["food_id"]  %></p>
+          <h5 class="shop-item-title"><%= results[i]["name"]  %></h5>
+          <h6 class='shop-item-price'><%= results[i]["price"] %>₹</h6>
+          <button class="cart-button">
+          <span class="add-to-cart">Add to cart</span>
+          </button>
+        </div>
+      </div>
+        <% } %>
+      </section>
+    </div>
+   <script type="text/javascript" charset="UTF-8" src="/javascript/food.js"></script>
+  </body>
+</html>
+
+<!--
+<section class="products" id="products">
+  <div class="product-card">
+    <div class="product-image">
+      <img src="images/panner_butter_masala.jpg">
+    </div>
+    <div class="product-info">
+      <h5>panner_butter_masala</h5>
+      <h6>$99.99</h6>
+      </div>
+  </div>
+--!>
